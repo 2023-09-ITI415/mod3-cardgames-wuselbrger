@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Scoreboard : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class Scoreboard : MonoBehaviour
         }
         set {
             _scoreString = value;
-            GetComponent<Text>().text = _scoreString;
+            GetComponent<TextMeshProUGUI>().text = _scoreString;
         }
     }
     void Awake() {

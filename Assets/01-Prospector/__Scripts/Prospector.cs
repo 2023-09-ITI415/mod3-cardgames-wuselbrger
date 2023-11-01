@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 
 public class Prospector : MonoBehaviour {
@@ -10,7 +11,7 @@ public class Prospector : MonoBehaviour {
 	static public Prospector 	S;
 
 	[Header("Set in Inspector")]
-	public TextAsset			deckXML;
+	public TextAsset deckXML;
 	public TextAsset layoutXML;
 	public float xOffset = 3;
 	public float yOffset = -2.5f;
@@ -40,11 +41,11 @@ public class Prospector : MonoBehaviour {
 	void SetUpUITexts(){
 		GameObject go = GameObject.Find("HighScore");
 		if(go != null){
-			highScoreText = go.GetComponent<Text>();
+			highScoreText = go.GetComponent<TextMeshProUGUI>();
 		}
 		int highScore = ScoreManager.HIGH_SCORE;
 		string hScore = "High Score: "+ Utils.AddCommasToNumber(highScore);
-		go.GetComponent<Text>().text = hScore;
+		go.GetComponent<TextMeshProUGUI>().text = hScore;
 
 		go = GameObject.Find("GameOver");
 		if(go != null){
@@ -183,7 +184,6 @@ public class Prospector : MonoBehaviour {
 			layout.multiplier.x * (layout.drawPile.x + i*dpStagger.x),
 			layout.multiplier.y * (layout.drawPile.y + i*dpStagger.y),
 			-layout.discardPile.layerID+0.1f*i);
-
 			cd.faceUp = false;
 			cd.state = eCardState.drawpile;
 			cd.SetSortingLayerName(layout.drawPile.layerName);
@@ -261,10 +261,15 @@ public class Prospector : MonoBehaviour {
 			FloatingScoreHandler(eScoreEvent.gameLoss);
 		}
 		Invoke("ReloadLevel", reloadDelay);
-		SceneManager.LoadScene("__Prospector_Scene_0");
+		SceneManager.LoadScene("__Prospector");
+	}
+
+	void ReloadLevel(){	
+		SceneManager.LoadScene("__Prospector");
 	}
 
 	public bool AdjacentRank(CardProspector c0, CardProspector c1){
+
 		if(!c0.faceUp || !c1.faceUp)
 			return (false);
 		if(Mathf.Abs(c0.rank - c1.rank) == 1)
@@ -296,24 +301,24 @@ public class Prospector : MonoBehaviour {
 				break;
 			
 			case eScoreEvent.mine:
-			FloatingScore fs;
-			Vector2 p0 = Input.mousePosition;
-			p0.x /= Screen.width;
-			p0.y /= Screen.height;
-			fsPts = new List<Vector2>();
-			fsPts.Add(p0);
-			fsPts.Add(fsPosMid);
-			fsPts.Add(fsPosRun);
-			fs = Scoreboard.S.CreateFloatingScore(ScoreManager.CHAIN,fsPts);
-			fs.fontSizes = new List<float>(new float[] {4,50,28});
-			if(fsRun == null){
-				fsRun = fs;
-				fsRun.reportFinishTo = null;
-			}
-			else{
-				fs.reportFinishTo = fsRun.gameObject;
-			}
-			break;
+				FloatingScore fs;
+				Vector2 p0 = Input.mousePosition;
+				p0.x /= Screen.width;
+				p0.y /= Screen.height;
+				fsPts = new List<Vector2>();
+				fsPts.Add(p0);
+				fsPts.Add(fsPosMid);
+				fsPts.Add(fsPosRun);
+				fs = Scoreboard.S.CreateFloatingScore(ScoreManager.CHAIN,fsPts);
+				fs.fontSizes = new List<float>(new float[] {4,50,28});
+				if(fsRun == null){
+					fsRun = fs;
+					fsRun.reportFinishTo = null;
+				}
+				else{
+					fs.reportFinishTo = fsRun.gameObject;
+				}
+				break;
 		}
 	}
 }

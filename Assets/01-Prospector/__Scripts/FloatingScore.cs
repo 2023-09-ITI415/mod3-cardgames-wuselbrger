@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public enum eFSState{
        idle,
@@ -25,7 +26,7 @@ public class FloatingScore : MonoBehaviour
         set{
             _score = value;
             scoreString = _score.ToString("NO");
-            GetComponent<Text>().text = scoreString;
+            GetComponent<TextMeshProUGUI>().text = scoreString;
         }
     }
 
@@ -37,14 +38,14 @@ public class FloatingScore : MonoBehaviour
 
     public GameObject reportFinishTo = null;
     private RectTransform rectTrans;
-    private Text txt;
+    private TextMeshProUGUI txt;
 
     public void Init(List<Vector2> ePts, float eTimeS = 0, float eTimeD = 1)
     {
         rectTrans = GetComponent<RectTransform>();
         rectTrans.anchoredPosition = Vector2.zero;
 
-        txt = GetComponent<Text>();
+        txt = GetComponent<TextMeshProUGUI>();
 
         bezierPts = new List<Vector2>(ePts);
         if(ePts.Count == 1){
@@ -97,7 +98,7 @@ public class FloatingScore : MonoBehaviour
             rectTrans.anchorMin = rectTrans.anchorMax = pos;
             if(fontSizes != null && fontSizes.Count > 0){
                 int size = Mathf.RoundToInt(Utils.Bezier(uC, fontSizes));
-                GetComponent<Text>().fontSize = size;
+                GetComponent<TextMeshProUGUI>().fontSize = size;
             }
         }
     }
