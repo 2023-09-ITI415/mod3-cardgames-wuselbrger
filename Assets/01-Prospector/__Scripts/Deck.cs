@@ -40,13 +40,11 @@ public class Deck : MonoBehaviour {
 
 	// called by Prospector when it is ready
 	public void InitDeck(string deckXMLText) {
-		// from page 576
 		if( GameObject.Find("_Deck") == null) {
 			GameObject anchorGO = new GameObject("_Deck");
 			deckAnchor = anchorGO.transform;
 		}
 		
-		// init the Dictionary of suits
 		dictSuits = new Dictionary<string, Sprite>() {
 			{"C", suitClub},
 			{"D", suitDiamond},
@@ -54,9 +52,6 @@ public class Deck : MonoBehaviour {
 			{"S", suitSpade}
 		};
 		
-		
-		
-		// -------- end from page 576
 		ReadDeck (deckXMLText);
 		MakeCards();
 	}

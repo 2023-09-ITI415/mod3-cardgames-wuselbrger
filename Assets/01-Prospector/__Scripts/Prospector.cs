@@ -24,7 +24,7 @@ public class Prospector : MonoBehaviour {
 	public TextMeshProUGUI gameOverText, roundResultText, highScoreText;
 
 	[Header("Set Dynamically")]
-	public Deck					deck;
+	public Deck	deck;
 	public Layout layout;
 	public List<CardProspector> drawPile;
 	public Transform layoutAnchor;
