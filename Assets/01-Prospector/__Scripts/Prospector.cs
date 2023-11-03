@@ -75,17 +75,17 @@ public class Prospector : MonoBehaviour {
 		layout.ReadLayout(layoutXML.text);
 		drawPile = ConvertListCardsToListCardProspectors(deck.cards);
 		LayoutGame();
-		List<CardProspector> ConvertListCardsToListCardProspectors(List<Card> lCD){
-			List<CardProspector> lCP = new List<CardProspector>();
-			CardProspector tCP;
-			foreach(Card tCD in lCD){
-				tCP = tCD as CardProspector; 
-				lCP.Add(tCP);
-			}
-			return(lCP);
-		}
 	}
 
+	List<CardProspector> ConvertListCardsToListCardProspectors(List<Card> lCD){
+		List<CardProspector> lCP = new List<CardProspector>();
+		CardProspector tCP;
+		foreach(Card tCD in lCD){
+			tCP = tCD as CardProspector; 
+			lCP.Add(tCP);
+		}
+		return(lCP);
+	}
 	CardProspector Draw(){
 		CardProspector cd = drawPile[0];
 		drawPile.RemoveAt(0); 
